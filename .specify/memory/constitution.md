@@ -1,50 +1,80 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+Version change: 0.0.0 -> 1.0.0
+Modified principles: none (new constitution established)
+Added sections: Core Principles, Technical Standards, Development Workflow, Governance
+Removed sections: none
+Follow-up TODOs: none
+-->
+
+# Todo App Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Quality and Clarity First
+All code, tests, and UI details MUST be written with clear intent, readable structure, and consistent naming. The project MUST use 2-space indentation, camelCase naming, PascalCase for React components, and clear file organization so that a developer can understand the system without hidden context.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+This principle exists because the repo’s coding guidelines emphasize consistency, maintainability, and documentation. Readability is not optional; it is a delivery requirement that reduces defects and speeds onboarding.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Single Responsibility and Minimal Complexity
+Each module, component, function, and service MUST have one reason to change and must not mix unrelated concerns. Repeated logic MUST be extracted into shared utilities, and solutions MUST favor simple, direct implementations over clever abstractions.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+This principle reflects the DRY, KISS, and SOLID guidance in the coding standards. Complexity must be justified with a clear need; otherwise, simpler structure is the default.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Test-Driven Reliability
+All behavior changes MUST be validated with tests before implementation is considered complete. Unit and integration tests MUST cover components, services, and user workflows, and coverage MUST remain at or above the project target of 80% across packages.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+This principle is non-negotiable because the testing guidelines require TDD, maintainable tests, and verification of real behavior rather than implementation details. A feature that cannot be proven by test remains unverified work.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. User-Centered Functionality
+The todo application MUST prioritize the user-visible requirements in the functional specification: creating, viewing, updating, and deleting todo items with reliable persistence. The product MUST remain simple, focused, and predictable, with no undocumented feature creep or out-of-scope complexity.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+This policy preserves the product scope documented in the functional requirements and ensures the app remains a straightforward single-user planner rather than a bloated feature set.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Accessible, Consistent, and Theme-Aware UI
+The frontend MUST build a clean, accessible, single-column task interface that respects the documented design system, including clear hierarchy, visible focus states, and accessible interaction patterns. Light and dark modes MUST remain consistent, and every interactive element MUST support keyboard and screen-reader usability.
+
+This principle is required because the UI guidance defines the expected product experience and accessibility requirements. A visually polished interface is not acceptable if it blocks navigation or readability.
+
+## Technical Standards
+
+The project MUST follow the documented monorepo structure, keeping React frontend code in packages/frontend and Express backend code in packages/backend. Shared logic MUST be placed in the most local, reusable module possible, and imports MUST be organized in a consistent order with clear separation between external libraries, internal modules, and styles.
+
+The application MUST treat error handling as a first-class requirement. Failures in user actions, API calls, and persistence flows MUST produce meaningful feedback, not silent failures. Code review and local quality checks MUST verify linting, API contracts, and user-facing behavior before completion.
+
+## Development Workflow
+
+The project MUST follow a disciplined workflow rooted in the docs:
+
+- Requirements are defined before implementation and remain aligned with the functional spec.
+- Tests are written and run for behavior changes before code is considered complete.
+- Feature work is kept small, reviewable, and scoped to a single responsibility.
+- UI and interaction changes MUST follow the documented design and accessibility standards.
+- Persistence and backend behavior MUST be validated with the existing Express and Jest workflow.
+
+All work MUST be reviewed for compliance with this constitution before merge. Code that violates the documented standards is not considered acceptable even if it appears functional in the moment.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes ad hoc practices and undocumented preferences for the project. Any change to governance, core principles, standards, or workflow MUST be documented in this constitution and accompanied by a clear rationale tied to the project’s technical and product requirements.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Amendments MUST follow this process:
+
+1. Propose the change with a clear justification and affected requirement or guideline.
+2. Update the constitution text and any technical guidance needed to reflect the change.
+3. Review the amendment for compatibility with existing principles, testing requirements, and product scope.
+4. Record the change as a new version with the updated ratification or amendment date.
+
+Versioning policy:
+
+- MAJOR: backward-incompatible governance changes or removal/redefinition of a core principle.
+- MINOR: new principles, major expansions to standards, or materially changed workflow expectations.
+- PATCH: wording clarifications, typo corrections, and non-semantic governance refinements.
+
+Compliance review expectations:
+
+- Pull requests MUST confirm that the work matches the project requirements and respects the documented standards.
+- Status, validation, and test evidence MUST be included for changes that affect behavior or UI.
+- Any exception to a principle MUST be justified in writing and approved before merge.
+
+**Version**: 1.0.0 | **Ratified**: 2026-08-24 | **Last Amended**: 2026-08-24
