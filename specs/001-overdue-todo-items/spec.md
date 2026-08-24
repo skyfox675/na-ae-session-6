@@ -8,6 +8,12 @@
 
 **Input**: User description: "Support for Overdue Todo Items — As a todo application user I want to easily identify and distinguish overdue tasks in my todo list so that I can prioritize my work and quickly see which tasks are past their due date. Users need a clear, visual way to identify which todos have not been completed by their due date. This feature must include automated tests covering the overdue determination logic and its display."
 
+## Clarifications
+
+### Session 2026-08-24
+
+- Q: Should the app treat a task as overdue when its due date is before today in the user’s local calendar, or should it also consider the exact time on the due date if timestamps are stored? → A: Compare by full timestamp, including time of day.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Spot overdue tasks at a glance (Priority: P1)
@@ -62,19 +68,19 @@ A user sees a summary count of how many tasks are currently overdue, so they can
 
 ### Edge Cases
 
-- A task due today must not be treated as overdue at any time during that calendar day, including late evening.
+- A task due later today must not be treated as overdue until its local due timestamp has passed; a task due earlier today may be overdue once the current local time is past that timestamp.
 - A task with an unparseable or malformed due date value must be displayed without an overdue marking rather than causing an error or empty list.
 - The list remains readable when every task is overdue — the overdue treatment must not obscure task titles or actions.
-- The overdue determination uses the user's local calendar date, so a user whose device date changes (travel, manual clock change) sees status recalculated on the next view.
-- A list left open across midnight may show a task's status from the previous day until the list is next refreshed or changed; this is acceptable and not a defect.
+- The overdue determination uses the user's local date and time, so a user whose device clock changes (travel, manual adjustment) sees status recalculated on the next view.
+- A list left open across a due timestamp boundary may continue to show the previous overdue status until the list is next refreshed or changed; this is acceptable and not a defect.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: System MUST classify a task as overdue when the task is incomplete AND its due date is strictly earlier than the current local calendar date.
-- **FR-002**: System MUST NOT classify a task as overdue when it has no due date, when its due date is today or later, or when it is already complete.
-- **FR-003**: System MUST compare dates at whole-day granularity, ignoring time of day, so that a task due today is never overdue during that day.
+- **FR-001**: System MUST classify a task as overdue when the task is incomplete AND its due date-time is strictly earlier than the current local date-time.
+- **FR-002**: System MUST NOT classify a task as overdue when it has no due date, when its due date-time is equal to or later than the current local date-time, or when it is already complete.
+- **FR-003**: System MUST compare due timestamps using the user's local time zone and exact precision, so that a task is only overdue after its due moment has passed.
 - **FR-004**: System MUST display a clearly distinguishable visual treatment on each overdue task, so that overdue tasks are separable from other tasks at a glance.
 - **FR-005**: System MUST accompany the visual treatment with a text indicator ("Overdue") so that status is not conveyed by colour alone.
 - **FR-006**: System MUST expose the overdue state to assistive technology so that screen-reader users receive the same status information as sighted users.
@@ -105,8 +111,8 @@ A user sees a summary count of how many tasks are currently overdue, so they can
 
 - The existing todo item already supports an optional due date; no new data capture is introduced by this feature.
 - Overdue status is derived at display time and is not persisted, so no data migration is required.
-- Due dates are date-only values without a time component; therefore "overdue" means the whole due day has passed.
-- The comparison uses the user's local device date, consistent with a single-user application with no server-side scheduling.
+- Due dates may include exact local time values when present; therefore "overdue" means the due moment has passed in the user's local timezone.
+- The comparison uses the user's local device date and time, consistent with a single-user application with no server-side scheduling.
 - Filtering, sorting, or notifying by overdue status is out of scope for this feature; only identification and a summary count are included.
 - The existing design system supplies an appropriate warning/danger colour and theme tokens for both light and dark modes.
 - The visual treatment reuses the existing task list layout; no new screens or navigation are introduced.
