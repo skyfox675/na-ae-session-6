@@ -59,4 +59,28 @@ describe('TodoList Component', () => {
     expect(screen.getAllByLabelText(/Edit/)).toHaveLength(2);
     expect(screen.getAllByLabelText(/Delete/)).toHaveLength(2);
   });
+
+  it('should show an overdue count summary when one or more tasks are overdue', () => {
+    const overdueTodos = [
+      { ...mockTodos[0], id: 1, dueDate: '2024-01-01', completed: 0 },
+      { ...mockTodos[1], id: 2, dueDate: '2099-12-25', completed: 0 },
+      { id: 3, title: 'Todo 3', dueDate: '2099-02-02', completed: 0, createdAt: '2025-11-03T00:00:00Z' }
+    ];
+
+    render(<TodoList todos={overdueTodos} {...mockHandlers} isLoading={false} />);
+
+    expect(screen.getByText('1 overdue task')).toBeInTheDocument();
+  });
+
+  it('should not show overdue count when no tasks are overdue', () => {
+    const futureTodos = [
+      { ...mockTodos[0], dueDate: '2099-12-25', completed: 0 },
+      { ...mockTodos[1], dueDate: null, completed: 1 }
+    ];
+
+    render(<TodoList todos={futureTodos} {...mockHandlers} isLoading={false} />);
+
+    expect(screen.queryByText('1 overdue task')).not.toBeInTheDocument();
+    expect(screen.queryByText('2 overdue tasks')).not.toBeInTheDocument();
+  });
 });

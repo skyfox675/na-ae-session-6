@@ -11,6 +11,14 @@ describe('TodoCard Component', () => {
     createdAt: '2025-11-01T00:00:00Z'
   };
 
+  const overdueTodo = {
+    ...mockTodo,
+    id: 2,
+    title: 'Overdue Todo',
+    dueDate: '2025-12-20',
+    completed: 0
+  };
+
   const mockHandlers = {
     onToggle: jest.fn(),
     onEdit: jest.fn(),
@@ -98,5 +106,20 @@ describe('TodoCard Component', () => {
     render(<TodoCard todo={todoNoDate} {...mockHandlers} isLoading={false} />);
     
     expect(screen.queryByText(/Due:/)).not.toBeInTheDocument();
+  });
+
+  it('should render overdue label and accessible status for past due incomplete tasks', () => {
+    render(<TodoCard todo={overdueTodo} {...mockHandlers} isLoading={false} />);
+
+    const overdueStatus = screen.getByRole('status');
+    expect(overdueStatus).toHaveTextContent('Overdue');
+    expect(overdueStatus).toHaveAttribute('aria-live', 'polite');
+  });
+
+  it('should not render overdue label for tasks due today or in the future', () => {
+    const futureTodo = { ...mockTodo, dueDate: '2099-12-25' };
+    render(<TodoCard todo={futureTodo} {...mockHandlers} isLoading={false} />);
+
+    expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
   });
 });

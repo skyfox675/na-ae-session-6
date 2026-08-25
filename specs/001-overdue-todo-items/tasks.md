@@ -17,8 +17,8 @@ description: "Actionable task list for overdue todo item support"
 
 **Purpose**: Confirm the existing frontend test and styling surfaces used by this feature.
 
-- [ ] T001 [P] Confirm the frontend Jest command and coverage configuration in `packages/frontend/package.json`
-- [ ] T002 [P] Confirm the existing todo component test fixtures and handler conventions in `packages/frontend/src/components/__tests__/TodoCard.test.js` and `packages/frontend/src/components/__tests__/TodoList.test.js`
+- [X] T001 [P] Confirm the frontend Jest command and coverage configuration in `packages/frontend/package.json`
+- [X] T002 [P] Confirm the existing todo component test fixtures and handler conventions in `packages/frontend/src/components/__tests__/TodoCard.test.js` and `packages/frontend/src/components/__tests__/TodoList.test.js`
 
 ---
 
@@ -26,8 +26,8 @@ description: "Actionable task list for overdue todo item support"
 
 **Purpose**: Establish the shared display-time overdue calculation without changing the backend contract or persistence model.
 
-- [ ] T003 Create the shared overdue predicate module in `packages/frontend/src/utils/todo.js`, accepting a todo and current timestamp while treating missing and invalid due dates as non-overdue
-- [ ] T004 [P] Add the utility module to frontend coverage through `packages/frontend/package.json` collection rules and ensure it is importable by todo components
+- [X] T003 Create the shared overdue predicate module in `packages/frontend/src/utils/todo.js`, accepting a todo and current timestamp while treating missing and invalid due dates as non-overdue
+- [X] T004 [P] Add the utility module to frontend coverage through `packages/frontend/package.json` collection rules and ensure it is importable by todo components
 
 **Checkpoint**: Shared overdue calculation is available to all stories; no API or database migration is required.
 
@@ -41,14 +41,14 @@ description: "Actionable task list for overdue todo item support"
 
 ### Tests for User Story 1
 
-- [ ] T005 [P] [US1] Add unit coverage for past, future, same-day, missing, invalid, completed, and incomplete due-date cases in `packages/frontend/src/utils/__tests__/todo.test.js`
-- [ ] T006 [P] [US1] Add component coverage for the overdue label, visual class, accessible status, and non-overdue rendering in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T005 [P] [US1] Add unit coverage for past, future, same-day, missing, invalid, completed, and incomplete due-date cases in `packages/frontend/src/utils/__tests__/todo.test.js`
+- [X] T006 [P] [US1] Add component coverage for the overdue label, visual class, accessible status, and non-overdue rendering in `packages/frontend/src/components/__tests__/TodoCard.test.js`
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Integrate the shared overdue predicate into `packages/frontend/src/components/TodoCard.js` using the current timestamp and completion state
-- [ ] T008 [US1] Render the `Overdue` text indicator and an assistive-technology label in `packages/frontend/src/components/TodoCard.js` without hiding the due date or task actions
-- [ ] T009 [US1] Add a theme-aware overdue visual treatment with sufficient light and dark theme contrast in `packages/frontend/src/App.css` and `packages/frontend/src/styles/theme.css`
+- [X] T007 [US1] Integrate the shared overdue predicate into `packages/frontend/src/components/TodoCard.js` using the current timestamp and completion state
+- [X] T008 [US1] Render the `Overdue` text indicator and an assistive-technology label in `packages/frontend/src/components/TodoCard.js` without hiding the due date or task actions
+- [X] T009 [US1] Add a theme-aware overdue visual treatment with sufficient light and dark theme contrast in `packages/frontend/src/App.css` and `packages/frontend/src/styles/theme.css`
 
 **Checkpoint**: User Story 1 is independently functional and testable for all required date and completion cases.
 
@@ -62,12 +62,12 @@ description: "Actionable task list for overdue todo item support"
 
 ### Tests for User Story 2
 
-- [ ] T010 [P] [US2] Add interaction coverage for complete/incomplete transitions and edit-to-future/edit-to-cleared transitions in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T010 [P] [US2] Add interaction coverage for complete/incomplete transitions and edit-to-future/edit-to-cleared transitions in `packages/frontend/src/components/__tests__/TodoCard.test.js`
 
 ### Implementation for User Story 2
 
-- [ ] T011 [US2] Ensure `packages/frontend/src/components/TodoCard.js` derives overdue state from current `todo.completed` and `todo.dueDate` props on every render after existing toggle and edit callbacks resolve
-- [ ] T012 [US2] Verify the existing state refresh path supplies updated todo records to `packages/frontend/src/App.js` and preserves immediate card rerender without adding persisted overdue state
+- [X] T011 [US2] Ensure `packages/frontend/src/components/TodoCard.js` derives overdue state from current `todo.completed` and `todo.dueDate` props on every render after existing toggle and edit callbacks resolve
+- [X] T012 [US2] Verify the existing state refresh path supplies updated todo records to `packages/frontend/src/App.js` and preserves immediate card rerender without adding persisted overdue state
 
 **Checkpoint**: Completion and due-date changes update the overdue treatment without a page reload or backend contract change.
 
@@ -81,12 +81,12 @@ description: "Actionable task list for overdue todo item support"
 
 ### Tests for User Story 3
 
-- [ ] T013 [P] [US3] Add summary-count coverage for mixed overdue/non-overdue lists and zero-overdue lists in `packages/frontend/src/components/__tests__/TodoList.test.js`
+- [X] T013 [P] [US3] Add summary-count coverage for mixed overdue/non-overdue lists and zero-overdue lists in `packages/frontend/src/components/__tests__/TodoList.test.js`
 
 ### Implementation for User Story 3
 
-- [ ] T014 [US3] Compute the overdue count with the shared predicate and render an accessible summary only when the count is greater than zero in `packages/frontend/src/components/TodoList.js`
-- [ ] T015 [US3] Add responsive, theme-aware summary styling that remains legible when all todos are overdue in `packages/frontend/src/App.css`
+- [X] T014 [US3] Compute the overdue count with the shared predicate and render an accessible summary only when the count is greater than zero in `packages/frontend/src/components/TodoList.js`
+- [X] T015 [US3] Add responsive, theme-aware summary styling that remains legible when all todos are overdue in `packages/frontend/src/App.css`
 
 **Checkpoint**: The list summary stays consistent with individual card indicators and disappears when no task is overdue.
 
@@ -96,10 +96,10 @@ description: "Actionable task list for overdue todo item support"
 
 **Purpose**: Validate the complete feature against project quality, accessibility, and quickstart requirements.
 
-- [ ] T016 [P] Run the frontend test suite with coverage using `npm run test --workspace=frontend` and confirm overdue logic and display coverage are included
-- [ ] T017 [P] Run the full monorepo test suite using `npm test` and confirm existing backend behavior remains unaffected
-- [ ] T018 Validate the overdue workflow, theme readability, keyboard/screen-reader status, malformed dates, and no-overdue summary behavior against `specs/001-overdue-todo-items/quickstart.md`
-- [ ] T019 Review changed frontend files for 2-space indentation, clear naming, accessible status communication, and no persisted `isOverdue` field in `packages/frontend/src`
+- [X] T016 [P] Run the frontend test suite with coverage using `npm run test --workspace=frontend` and confirm overdue logic and display coverage are included
+- [X] T017 [P] Run the full monorepo test suite using `npm test` and confirm existing backend behavior remains unaffected
+- [X] T018 Validate the overdue workflow, theme readability, keyboard/screen-reader status, malformed dates, and no-overdue summary behavior against `specs/001-overdue-todo-items/quickstart.md`
+- [X] T019 Review changed frontend files for 2-space indentation, clear naming, accessible status communication, and no persisted `isOverdue` field in `packages/frontend/src`
 
 ---
 
